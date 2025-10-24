@@ -103,8 +103,8 @@ function ExAutoCSHS:OnSpellCast(arg1)
                     ExAutoCSHS:WarnHS()
                 end
                 if (string.find(arg1, "Crusader Strike") ~= nil  ) then 
-                     if (  EvalCSThrottle() )  then ExAutoCSHS:SetTimer(ExAutoCSHS.ZealSpacerT,23)   ExAutoCSHS:Log("zeal timer set")  end
                     ExAutoCSHS:SetZeal(ExAutoCSHS.CurrentPrioMode)
+                    if (  EvalCSThrottle() )  then ExAutoCSHS:SetTimer(ExAutoCSHS.ZealSpacerT,23)   ExAutoCSHS:Log("zeal timer set")  end
                     ExAutoCSHS:WarnCS()
                 end
 end
