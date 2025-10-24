@@ -72,8 +72,8 @@ end
 function ExAutoCSHS:OpensWithCS(OpenMode,PrioMode)
 
 	
-	if OpenMode == OpenModeCS then   return true end
-	if OpenMode == OpenModeHS then   return false end
+	if OpenMode == ExAutoCSHS.OpenModeCS then   return true end
+	if OpenMode == ExAutoCSHS.OpenModeHS then   return false end
 	
    return not ExAutoCSHS:MoreHS(PrioMode)
 end
@@ -82,8 +82,8 @@ function ExAutoCSHS:HasOffhand()
 end
 function ExAutoCSHS:MoreHS(PrioMode)
 
-	if PrioMode == PrioModeCS then return false end
-	if PrioMode == PrioModeHS then return true end
+	if PrioMode == ExAutoCSHS.PrioModeCS then return false end
+	if PrioMode == ExAutoCSHS.PrioModeHS then return true end
 	local hasoffhand = ExAutoCSHS:HasOffhand()
 	 return hasoffhand
 end
@@ -111,7 +111,7 @@ end
  
  
 function EvalCSThrottle()
-	if (ExAutoCSHS.PrioZeal and ExAutoCSHS:GetZeal()<3) then
+	if (ExAutoCSHS.CurrentPrioZeal and ExAutoCSHS:GetZeal()<3) then
 		return false
 	end
 	if (ExAutoCSHS:MoreHS(ExAutoCSHS.CurrentPrioMode)) then
@@ -165,7 +165,7 @@ function ExAutoCSHS:Eval(OpenMode,PrioMode,PrioZeal,UseExorcism)
 		else
 			ExAutoCSHS:HS()
 		end
-      end
+	else
 
 		if (UseExorcism) then
 			local targettype =  UnitCreatureType("target")
@@ -173,7 +173,7 @@ function ExAutoCSHS:Eval(OpenMode,PrioMode,PrioZeal,UseExorcism)
 				ExAutoCSHS:Excorcism()
 			end
 		end
-	
+	end
 end
  
 function ExAutoCSHS:GetZeal()
