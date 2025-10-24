@@ -104,7 +104,7 @@ function ExAutoCSHS:OnSpellCast(arg1)
                 end
                 if (string.find(arg1, "Crusader Strike") ~= nil  ) then 
                     ExAutoCSHS:SetZeal(ExAutoCSHS.CurrentPrioMode)
-                    if (  EvalCSThrottle() )  then ExAutoCSHS:SetTimer(ExAutoCSHS.ZealSpacerT,23)   ExAutoCSHS:Log("zeal timer set")  end
+                    if (  EvalCSThrottle() )  then ExAutoCSHS:SetTimer(ExAutoCSHS.ZealSpacerT,22)   ExAutoCSHS:Log("zeal timer set")  end
                     ExAutoCSHS:WarnCS()
                 end
 end
@@ -137,10 +137,9 @@ function ExAutoCSHS:Eval(OpenMode,PrioMode,PrioZeal,UseExorcism)
 		local stacks = ExAutoCSHS:GetZeal()
 		if ( ExAutoCSHS:OpensWithCS(ExAutoCSHS.CurrentOpenMode,ExAutoCSHS.CurrentPrioMode) or ExAutoCSHS:GetMight()) then
 			if stacks>0 then
-		 
-				if ExAutoCSHS:GetTimer(ExAutoCSHS.ZealSpacerT) then
+		  
 					if stacks < 3 and not ExAutoCSHS:MoreHS(ExAutoCSHS.CurrentPrioMode) then
-						if ExAutoCSHS:GetMight() then
+						if ExAutoCSHS:GetMight() or ExAutoCSHS.CurrentPrioZeal == 1 then
 							ExAutoCSHS:Log("stacks ExAutoCSHS:GetMight()")
 							ExAutoCSHS:CS()
 						else
@@ -154,10 +153,7 @@ function ExAutoCSHS:Eval(OpenMode,PrioMode,PrioZeal,UseExorcism)
 							ExAutoCSHS:HS()
 						end
 					end
-				else
-					ExAutoCSHS:Log("zeal timer")
-				ExAutoCSHS:CS()
-				end
+ 
 			else
 				ExAutoCSHS:Log("no stacks")
 			ExAutoCSHS:CS()
