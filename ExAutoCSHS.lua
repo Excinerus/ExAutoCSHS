@@ -111,7 +111,7 @@ end
  
  
 function EvalCSThrottle()
-	if (ExAutoCSHS.CurrentPrioZeal and ExAutoCSHS:GetZeal()<3) then
+	if (ExAutoCSHS.CurrentPrioZeal == 1 and ExAutoCSHS:GetZeal()<3) then
 		return false
 	end
 	if (ExAutoCSHS:MoreHS(ExAutoCSHS.CurrentPrioMode)) then
