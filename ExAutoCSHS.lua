@@ -82,10 +82,10 @@ function ExAutoCSHS:HasOffhand()
 end
 function ExAutoCSHS:MoreHS(PrioMode)
 
-	if PrioMode == ExAutoCSHS.PrioModeCS then return false end
-	if PrioMode == ExAutoCSHS.PrioModeHS then return true end
-	local hasoffhand = ExAutoCSHS:HasOffhand()
-	 return hasoffhand
+	if PrioMode == ExAutoCSHS.PrioModeAuto then return ExAutoCSHS:HasOffhand() end
+	if PrioMode == ExAutoCSHS.PrioModeHS then return true end 
+	--if PrioMode == ExAutoCSHS.PrioModeCS then return false end
+	return false
 end
 function ExAutoCSHS:WarnHS()
     -- PlaySound("AuctionWindowClose", "master");  
@@ -98,8 +98,8 @@ function ExAutoCSHS:Warn()
 end
 function ExAutoCSHS:OnSpellCast(arg1)
                 if (string.find(arg1, "Holy Strike") ~= nil  ) then 
-                    if not ExAutoCSHS:MoreHS(ExAutoCSHS.CurrentPrioMode) then ExAutoCSHS:SetTimer(ExAutoCSHS.MightSpacerT , 13) end
                     ExAutoCSHS:SetMight(ExAutoCSHS.CurrentOpenMode,ExAutoCSHS.CurrentPrioMode)
+                    if not ExAutoCSHS:MoreHS(ExAutoCSHS.CurrentPrioMode) then ExAutoCSHS:SetTimer(ExAutoCSHS.MightSpacerT , 13) end
                     ExAutoCSHS:WarnHS()
                 end
                 if (string.find(arg1, "Crusader Strike") ~= nil  ) then 
@@ -136,7 +136,7 @@ function ExAutoCSHS:Eval(OpenMode,PrioMode,PrioZeal,UseExorcism)
 	if ( ExAutoCSHS:GetHSCD() == 0 )then 
 		local stacks = ExAutoCSHS:GetZeal()
 		if ( ExAutoCSHS:OpensWithCS(ExAutoCSHS.CurrentOpenMode,ExAutoCSHS.CurrentPrioMode) or ExAutoCSHS:GetMight()) then
-			if stacks>0 then
+			if stacks>0  and  ExAutoCSHS:GetTimer(ExAutoCSHS.ZealSpacerT) then
 		  
 					if stacks < 3 and not ExAutoCSHS:MoreHS(ExAutoCSHS.CurrentPrioMode) then
 						if ExAutoCSHS:GetMight() or ExAutoCSHS.CurrentPrioZeal == 1 then
